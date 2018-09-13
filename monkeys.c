@@ -15,6 +15,7 @@
 
 #define N_MONKEYS_A 5
 #define N_MONKEYS_B 5
+#define TRUE 1
 #define A 'A'
 #define B 'B'
 
@@ -39,7 +40,7 @@ void leaving_rope(char c){
 
 void * monkey_a(void * arg){
   int id = *((int *) arg);
-  while(1){
+  while(TRUE){
     pthread_mutex_lock(&turn);
     pthread_mutex_lock(&lock_a);
     if(a_monkeys_on_rope == 0){
@@ -63,7 +64,7 @@ void * monkey_a(void * arg){
 
 void * monkey_b(void * arg){
   int id = *((int *) arg);
-  while(1){
+  while(TRUE){
     pthread_mutex_lock(&turn);
     pthread_mutex_lock(&lock_b);
     if(b_monkeys_on_rope == 0){
