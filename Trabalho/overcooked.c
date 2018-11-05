@@ -26,7 +26,7 @@
 #define N_PLAYERS 4
 #define CUTTING_BOARDS 2
 #define TRUE 1
-#define DELAY_TIME 0
+#define DELAY_TIME 2
 
 void red()    { printf("\033[1;31m"); }
 void green()  { printf("\033[1;32m"); }
@@ -70,7 +70,7 @@ void get_ingredient(int id){
   pthread_mutex_unlock(&ingredients);
 }
 
-void chopping(int id){
+void chopp(int id){
   sem_wait(&chopping_table);
   color_funcs[id]();
   printf("Jogador %d cortando ingrediente\n", id);
@@ -78,7 +78,7 @@ void chopping(int id){
   sleep((rand() % 2) + DELAY_TIME);
 }
 
-void frying(int id){
+void fry(int id){
   pthread_mutex_lock(&frying_pan);
   sem_post(&chopping_table);
   color_funcs[id]();
@@ -112,8 +112,8 @@ void * play(void * arg){
   int id = *((int *) arg);
   while(TRUE){
     get_ingredient(id);
-    chopping(id);
-    frying(id);
+    chopp(id);
+    fry(id);
     deliver(id);
     print_ranking();
   }
